@@ -5,7 +5,7 @@ function App() {
     return (
       <CroctProvider appId="00000000-0000-0000-0000-000000000000">
           <Inicio/>
-    </CroctProvider>
+      </CroctProvider>
  
     );
   }

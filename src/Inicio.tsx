@@ -3,18 +3,23 @@ import { useCroct, Slot } from '@croct/plug-react';
 import { Suspense } from "react"
 import Logo from './logo_image.jpg'
 function Inicio() {
-    type HomeBannerContent = {
+
+    type Home = {
         title: string,
         subtitle: string,
-        cta: {
+        link_croct: {
             label: string,
             link: string,
         },
     };
 
     const croct = useCroct();
+    //seta inicialmente como um usuario anonimo.
     croct.user.edit().clear('custom.persona').save();
 
+    //foi necessário o "window.location.reload", pois a página não atualizava após setar a persona.
+
+    //button marketing
     function marketing() {
         croct.user.edit().set('custom.persona', 'marketer').save();
         window.alert('Seja bem-vindo(a) marketer!');
@@ -22,13 +27,15 @@ function Inicio() {
         
     }
 
-
+    //button developer
     function developer() {
         croct.user.edit().set('custom.persona', 'developer').save();
         window.alert('Seja bem-vindo(a) desenvolvedor(a)!');
         window.location.reload();
         
     }
+
+    //button growth-hacker
     function hacker() {
         croct.user.edit().set('custom.persona', 'growth-hacker').save();
        window.alert('Seja bem-vindo(a) growth-marketer!'); window.location.reload(); 
@@ -52,13 +59,13 @@ function Inicio() {
                 </nav>
             </header>
             <main>
-                <Suspense fallback="✨ Personalizing content...">
+                <Suspense fallback="Personalizando o conteúdo..."> 
                     <Slot id="home-banner">
-                        {({ title, subtitle, cta }: HomeBannerContent) => (
+                        {({ title, subtitle, link_croct }: Home) => (
                             <div>
                                 <h1 id="title">{title}</h1>
                                 <p>{subtitle}</p>
-                                <a href={cta.link}>{cta.label}</a>
+                                <a href={link_croct.link}>{link_croct.label}</a>
                             </div>
                         )}
                     </Slot>
